@@ -12,11 +12,11 @@ namespace Premium.Tests
             var factorProvider = new OccupationFactorProvider();
             var service = new PremiumCalculatorService(factorProvider);
 
-            //ACT
             int age = 30;
             decimal death = 500000M; // 500k
             string occupation = "Doctor"; // Professional 1.5
 
+            //ACT
             // Expected = (500000 * 1.5 * 30) / 1000 * 12 = 270000
             var result = service.CalculatePremium(age, death, occupation);
             //Assert
@@ -29,8 +29,10 @@ namespace Premium.Tests
             //Arrange
             var factorProvider = new OccupationFactorProvider();
             var service = new PremiumCalculatorService(factorProvider);
+
             //ACT
             var result = service.CalculatePremium(30, 100000M, "UnknownOccupation");
+
             //Assert
             Assert.Equal(0M, result);
         }
