@@ -8,7 +8,7 @@ This repository contains ASP.NET Core MVC solution that implements the Premium C
 - C# ASP.NET Core MVC
 - Razor views for UI
 - xUnit for unit tests
-- No database required for the sample; occupation factors are in-memory.
+- No database required; occupation factors are in-memory.
 
 ## How to run
 1. Install .NET 8 SDK from https://dotnet.microsoft.com/.
@@ -57,9 +57,9 @@ Tables suggested:
 ## Assumptions & Notes
 - All input fields are mandatory. Client-side and server-side validation included.
 - Changing occupation triggers premium calculation (handled on `change` event).
-- DOB is captured as MM/YYYY with an HTML month input; no date math is performed in this sample.
-- For production you'd persist members & occupations to a database; this sample keeps things in-memory for clarity.
-- Unit tests: add more coverage for edge cases and negative inputs.
+- DOB is captured as MM/YYYY with an HTML month input; no date math is performe.
+- For production you'd persist members & occupations to a database; this keeps things in-memory for clarity.
+- Unit tests: edge cases
 
 ## Git guidance
 - commit sequence is listed in submission instructions.
