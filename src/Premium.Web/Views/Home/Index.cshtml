@@ -1,0 +1,87 @@
+@model Premium.Web.Models.MemberViewModel
+@{
+    Layout = "_Layout";
+    var occupations = ViewBag.Occupations as IEnumerable<string> ?? new List<string>();
+}
+
+<form id="premiumForm" onsubmit="return false;">
+    <div>
+        <label>Name</label><br />
+        <input id="Name" type="text" value="@Model.Name" required />
+    </div>
+    <div>
+        <label>Age Next Birthday</label><br />
+        <input id="AgeNextBirthday" type="number" value="@Model.AgeNextBirthday" required min="0" />
+    </div>
+    <div>
+        <label>Date of Birth (MM/YYYY)</label><br />
+        <input id="DateOfBirthMonthYear" type="month" value="" required />
+    </div>
+    <div>
+        <label>Occupation</label><br />
+        <select id="Occupation" required>
+            <option value="">-- Select --</option>
+            @foreach(var occ in occupations)
+            {
+                <option value="@occ">@occ</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label>Death - Sum Insured</label><br />
+        <input id="DeathSumInsured" type="number" value="@Model.DeathSumInsured" required min="0" step="0.01" />
+    </div>
+
+    <div style="margin-top:10px;">
+        <strong>Monthly Premium: </strong><span id="premiumResult">-</span>
+    </div>
+</form>
+
+<script>
+    const occSelect = document.getElementById("Occupation");
+    occSelect.addEventListener("change", calculatePremium);
+    document.getElementById("AgeNextBirthday").addEventListener("input", calculatePremium);
+    document.getElementById("DeathSumInsured").addEventListener("input", calculatePremium);
+
+    function collectInput() {
+        return {
+            ageNextBirthday: parseInt(document.getElementById("AgeNextBirthday").value || "0"),
+            deathSumInsured: parseFloat(document.getElementById("DeathSumInsured").value || "0"),
+            occupation: document.getElementById("Occupation").value || ""
+        };
+    }
+
+    async function calculatePremium() {
+        const data = collectInput();
+        // Validate mandatory fields on client side before hitting API
+        if (!data.occupation || data.ageNextBirthday <= 0 || data.deathSumInsured <= 0) {
+            document.getElementById("premiumResult").innerText = "-";
+            return;
+        }
+
+        try {
+            const resp = await fetch("/Home/Calculate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    AgeNextBirthday: data.ageNextBirthday,
+                    DeathSumInsured: data.deathSumInsured,
+                    Occupation: data.occupation
+                })
+            });
+
+            if (!resp.ok) {
+                const txt = await resp.text();
+                document.getElementById("premiumResult").innerText = "Error";
+                console.error(txt);
+                return;
+            }
+
+            const json = await resp.json();
+            document.getElementById("premiumResult").innerText = json.premium.toFixed(2);
+        } catch (err) {
+            console.error(err);
+            document.getElementById("premiumResult").innerText = "Error";
+        }
+    }
+</script>
