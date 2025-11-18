@@ -5,20 +5,19 @@ This repository contains ASP.NET Core MVC solution that implements the Premium C
 
 ### Tech stack
 - .NET 8.0  framework
-- C# ASP.NET Core MVC
-- Razor views for UI
+- C# ASP.NET Core MVC(business logic & Controllers)
+- Razor views for UI+vanilla HTML/CSS/JS for client interactions
 - xUnit for unit tests
-- No database required; occupation factors are in-memory.
+- No external  database by default (occupation factors are in-memory).Database schema documented
 
 ## How to run
 1. Install .NET 8 SDK from https://dotnet.microsoft.com/.
-2. Extract the zip and open a terminal in `src/Premium.Web`.
-3. Run:
-   ```bash
-   dotnet restore
-   dotnet run
-   ```
-4.Open https://localhost:5001 or the URL displayed..
+2. open a terminal
+ # from repository root or src/Premium.Web
+cd src/Premium.Web
+dotnet restore
+dotnet run
+3.Open the  URL displayed(e.g https://localhost:5001)..
 
 ## What is included
 - `Program.cs` - app bootstrap

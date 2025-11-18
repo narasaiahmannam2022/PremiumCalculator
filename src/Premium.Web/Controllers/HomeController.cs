@@ -15,6 +15,8 @@ namespace Premium.Web.Controllers
             _premiumService = premiumService;
         }
 
+        #region Action Methods
+
         public IActionResult Index()
         {
             var model = new MemberViewModel();
@@ -34,5 +36,6 @@ namespace Premium.Web.Controllers
             var premium = _premiumService.CalculatePremium(request.AgeNextBirthday, request.DeathSumInsured, request.Occupation);
             return Ok(new { premium });
         }
+        #endregion
     }
 }
