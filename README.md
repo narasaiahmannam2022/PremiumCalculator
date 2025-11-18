@@ -29,6 +29,7 @@ This repository contains ASP.NET Core MVC solution that implements the Premium C
 - `wwwroot/css/site.css` - styling
 - `tests/` - xUnit test project 
 - `Scripts/Git_Sequential_Commits.sh` - Git Sequential Commits
+-  `documents/database_design.md` -Database design document
 
 ## Formula used
 Premium = (DeathSumInsured * RatingFactor * AgeNextBirthday) / 1000 * 12
@@ -54,6 +55,62 @@ Tables suggested:
 - Member (MemberId PK, Name, AgeNextBirthday, DateOfBirth, OccupationId FK, DeathSumInsured)
 - Occupation (OccupationId PK, OccupationName, RatingId FK)
 - OccupationRating (RatingId PK, RatingName, Factor)
+- # Database Design (ER)
+
+## Tables
+
+### Member
+- MemberId (PK)
+- Name
+- AgeNextBirthday
+- DateOfBirth
+- OccupationId (FK -> Occupation.OccupationId)
+- DeathSumInsured
+
+### Occupation
+- OccupationId (PK)
+- OccupationName
+- RatingId (FK -> OccupationRating.RatingId)
+
+### OccupationRating
+- RatingId (PK)
+- RatingName
+- Factor
+
+Relationships:
+- Member -> Occupation (many-to-one)
+- Occupation -> OccupationRating (many-to-one)
+
+# database design(Diagram Representation)
+
++------------------+
+|   Occupation     |
++------------------+
+| OccupationId PK  |
+| OccupationName   |
+| RatingId FK      |
++------------------+
+
++------------------+
+| OccupationRating |
++------------------+
+| RatingId PK      |
+| RatingName       |
+| Factor           |
++------------------+
+
++------------------+
+|     Member       |
++------------------+
+| MemberId PK      |
+| Name             |
+| AgeNextBirthday  |
+| DateOfBirth      |
+| OccupationId FK  |
+| DeathSumInsured  |
++------------------+
+
+
 
 ## Assumptions & Notes
 - All input fields are mandatory. Client-side and server-side validation included.
