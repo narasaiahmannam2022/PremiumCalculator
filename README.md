@@ -18,7 +18,7 @@ This repository contains ASP.NET Core MVC solution that implements the Premium C
    dotnet restore
    dotnet run
    ```
-4. Open `https://localhost:5001` or the URL displayed.
+4.Open https://localhost:5001 or the URL displayed..
 
 ## What is included
 - `Program.cs` - app bootstrap
@@ -27,7 +27,8 @@ This repository contains ASP.NET Core MVC solution that implements the Premium C
 - `Services/` - contains PremiumCalculatorService and occupation factor provider
 - `Views/` - Razor UI
 - `wwwroot/css/site.css` - styling
-- `tests/` - xUnit test project skeleton
+- `tests/` - xUnit test project 
+- `Scripts/Git_Sequential_Commits.sh` - Git Sequential Commits
 
 ## Formula used
 Premium = (DeathSumInsured * RatingFactor * AgeNextBirthday) / 1000 * 12
@@ -62,5 +63,5 @@ Tables suggested:
 - Unit tests: edge cases
 
 ## Git guidance
-- commit sequence is listed in submission instructions.
+-'Scripts/Git_Sequential_Commits.sh` - Git Sequential Commits is listed.
 
